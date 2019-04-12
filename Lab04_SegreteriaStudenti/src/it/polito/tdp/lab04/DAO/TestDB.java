@@ -8,8 +8,14 @@ public class TestDB {
 		 * 	This is a main to check the DB connection
 		 */
 		
-		CorsoDAO cdao = new CorsoDAO();
-		cdao.getTuttiICorsi();
+		try {
+			CorsoDAO cdao = new CorsoDAO();
+			cdao.getTuttiICorsi();
+			System.out.println("TestDB passed");
+
+		} catch (RuntimeException e) {
+			System.err.println("TestDB failed");
+		}
 
 	}
 
