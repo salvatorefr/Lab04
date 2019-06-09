@@ -4,21 +4,31 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class ConnectDB {
+import com.zaxxer.hikari.HikariDataSource;
 
-	static private final String jdbcUrl = "jdbc:mysql://localhost/iscritticorsi?user=root";
+public class ConnectDB {
+	private static HikariDataSource ds = null;
+	
+ 
 
 	public static Connection getConnection() {
 
-		try {
-				Connection connection = DriverManager.getConnection(jdbcUrl);
-			return connection;
+		String jdbcUrl = "jdbc:mysql://localhost/iscritticorsi";
+	 try {
+		 if (ds==null) {
+			ds= new HikariDataSource();
+			ds.setJdbcUrl(jdbcUrl);
+			ds.setUsername("root");
+			ds.setPassword("root");
+			 }
+		 Connection	conn= ds.getConnection();
+		 return conn;
+	 }catch(SQLException se) {return null;}
+	 
+	
+	
+	
+	
 
-		} catch (SQLException e) {
-
-			e.printStackTrace();
-			throw new RuntimeException("Cannot get a connection " + jdbcUrl, e);
-		}
-	}
-
+ }
 }
